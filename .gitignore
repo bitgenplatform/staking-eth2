@@ -1,0 +1,4 @@
+.idea/
+
+/launchpad/validator_keys/*
+!/launchpad/validator_keys/.gitkeep
