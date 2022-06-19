@@ -2,14 +2,17 @@ services:
   validator-import-launchpad:
     container_name: validator-import-launchpad
     image: gcr.io/prysmaticlabs/prysm/validator:${PRYSM_VERSION}
-    command: accounts import --keys-dir="/launchpad/validator_keys" --wallet-dir="/data/wallets" --wallet-password-file="/launchpad/wallet-password" --accept-terms-of-use --${ETH_NETWORK}
+    command: accounts import --keys-dir="/launchpad/validator_keys" --wallet-dir="/data/wallets" --wallet-password-file="/launchpad/wallet-password" --jwt-secret=/auth/jwt.hex --accept-terms-of-use --${ETH_NETWORK}
     volumes:
+      - ./auth:/auth
       - ./launchpad:/launchpad
       - ${DOCKER_VOL_PATH}/validator:/data
+
   validator-list-accounts:
     container_name: validator_list_accounts
     image: gcr.io/prysmaticlabs/prysm/validator:${PRYSM_VERSION}
-    command: accounts list --wallet-dir="/data/wallets" --wallet-password-file="/launchpad/wallet-password" --accept-terms-of-use --${ETH_NETWORK}
+    command: accounts list --wallet-dir="/data/wallets" --wallet-password-file="/launchpad/wallet-password" --jwt-secret=/auth/jwt.hex --accept-terms-of-use --${ETH_NETWORK}
     volumes:
+      - ./auth:/auth
       - ./launchpad:/launchpad
       - ${DOCKER_VOL_PATH}/validator:/data
