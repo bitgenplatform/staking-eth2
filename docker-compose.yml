@@ -6,7 +6,7 @@ services:
     image: ethereum/client-go:${ETHEREUM_CLIENT_VERSION}
     restart: always
     hostname: geth
-    command: --http --http.port=8545 --http.addr=0.0.0.0 --http.vhosts="*" --allow-insecure-unlock --http.api="db,eth,net,web3,personal" --authrpc.jwtsecret=/auth/jwt.hex
+    command: --http --http.port=8545 --http.addr=0.0.0.0 --http.vhosts="*" --allow-insecure-unlock --http.api="db,eth,net,web3,personal" --authrpc.jwtsecret=/auth/jwt.hex --${ETH_NETWORK}
     ports:
       - 30303:30303/tcp
       - 30303:30303/udp
