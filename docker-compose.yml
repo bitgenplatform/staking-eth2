@@ -6,7 +6,7 @@ services:
     image: ethereum/client-go:${ETHEREUM_CLIENT_VERSION}
     restart: always
     hostname: geth
-    command: --http --http.port=8545 --http.addr=0.0.0.0 --http.vhosts="*" --allow-insecure-unlock --http.api="db,eth,net,web3,personal" --authrpc.jwtsecret=/auth/jwt.hex --${ETH_NETWORK}
+    command: --http --http.port=8545 --http.addr=0.0.0.0 --http.vhosts="*" --allow-insecure-unlock --http.api="db,eth,net,web3,personal,txpool" --authrpc.jwtsecret=/auth/jwt.hex --${TARGET_CHAIN}
     ports:
       - 30303:30303/tcp
       - 30303:30303/udp
@@ -22,7 +22,7 @@ services:
     hostname: beacon-chain
     depends_on:
       - geth
-    command: --datadir=/data --rpc-host=0.0.0.0 --monitoring-host=0.0.0.0 --http-web3provider=http://geth:8545 --jwt-secret=/auth/jwt.hex --accept-terms-of-use --${ETH_NETWORK}
+    command: --slasher --p2p-host-ip=${PUBLIC_IP} --datadir=/data --rpc-host=0.0.0.0 --monitoring-host=0.0.0.0 --http-web3provider=http://geth:8545 --jwt-secret=/auth/jwt.hex --accept-terms-of-use --${ETH_NETWORK}
     ports:
       - 127.0.0.1:4000:4000
       - 13000:13000/tcp
@@ -43,15 +43,3 @@ services:
       - ./auth:/auth
       - ./launchpad:/launchpad
       - ${DOCKER_VOL_PATH}/validator:/data
-
-  slasher:
-    container_name: slasher
-    image: gcr.io/prysmaticlabs/prysm/slasher:${PRYSM_VERSION}
-    restart: always
-    hostname: slasher
-    depends_on:
-      - beacon
-    command: --beacon-rpc-provider=beacon:4000 --datadir=/data/db --monitoring-host=0.0.0.0 --jwt-secret=/auth/jwt.hex --accept-terms-of-use --${ETH_NETWORK}
-    volumes:
-      - ./auth:/auth
-      - ${DOCKER_VOL_PATH}/slasher:/data
