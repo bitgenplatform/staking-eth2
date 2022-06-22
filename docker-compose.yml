@@ -29,7 +29,7 @@ services:
       - 12000:12000/udp
     volumes:
       - ./auth:/auth
-      - ./ropsten-beacon-chain:/ropsten
+      - ./beacon-chain-genesis:/genesis
       - ${DOCKER_VOL_PATH}/beacon:/data
 
   validator:
