@@ -1,4 +1,7 @@
 .idea/
 
+/auth/jwt.hex
+/launchpad/wallet-password
+
 /launchpad/validator_keys/*
 !/launchpad/validator_keys/.gitkeep
