@@ -22,8 +22,9 @@ services:
     hostname: beacon-chain
     depends_on:
       - geth
-    command: --slasher --datadir=/data --rpc-host=0.0.0.0 --monitoring-host=0.0.0.0 --http-web3provider=http://geth:8545 --jwt-secret=/auth/jwt.hex --accept-terms-of-use --${ETH_NETWORK} --genesis-state=/genesis/${ETH_NETWORK}/genesis.ssz --suggested-fee-recipient=${FEE_RECIPIENT}
+    command: --slasher --datadir=/data --rpc-host=0.0.0.0 --grpc-gateway-host=0.0.0.0 --grpc-gateway-port=3500 --monitoring-host=0.0.0.0 --http-web3provider=http://geth:8545 --jwt-secret=/auth/jwt.hex --accept-terms-of-use --${ETH_NETWORK} --genesis-state=/genesis/${ETH_NETWORK}/genesis.ssz --suggested-fee-recipient=${FEE_RECIPIENT}
     ports:
+      - 3500:3500/tcp
       - 127.0.0.1:4000:4000
       - 13000:13000/tcp
       - 12000:12000/udp
