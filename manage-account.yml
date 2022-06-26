@@ -19,8 +19,8 @@ services:
       - ./launchpad:/launchpad
       - ${DOCKER_VOL_PATH}/validator:/data
 
-  exit-validator:
-    container_name: validator-exit-account
+  validator-exit:
+    container_name: validator-exit
     image: gcr.io/prysmaticlabs/prysm/validator:${PRYSM_VERSION}
     command: accounts voluntary-exit --wallet-dir="/data/wallets" --wallet-password-file="/launchpad/wallet-password" --public-keys=${PUBKEY} --jwt-secret=/auth/jwt.hex --accept-terms-of-use --beacon-rpc-provider="beacon:4000" --${ETH_NETWORK}
     volumes:
