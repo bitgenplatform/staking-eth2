@@ -1,0 +1,11 @@
+version: "3.7"
+
+services:
+  validator-delete-account:
+    container_name: validator-delete-account
+    image: gcr.io/prysmaticlabs/prysm/validator:${PRYSM_VERSION}
+    command: accounts delete --wallet-dir=/data/wallets --wallet-password-file="/launchpad/wallet-password" --accept-terms-of-use --jwt-secret=/auth/jwt.hex --${ETH_NETWORK}
+    volumes:
+      - ./auth:/auth
+      - ./launchpad:/launchpad
+      - ${DOCKER_VOL_PATH}/validator:/data
