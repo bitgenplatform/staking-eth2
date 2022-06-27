@@ -3,7 +3,7 @@ version: "3.7"
 services:
   geth:
     container_name: geth
-    image: ethereum/client-go:${ETHEREUM_CLIENT_VERSION}
+    image: ethereum/client-go:${GETH_VERSION}
     restart: always
     hostname: geth
     command:
