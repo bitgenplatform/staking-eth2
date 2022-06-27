@@ -7,9 +7,9 @@ services:
     command:
       - accounts
       - import
-      - --keys-dir="/launchpad/validator_keys"
-      - --wallet-dir="/data/wallets"
-      - --wallet-password-file="/launchpad/wallet-password"
+      - --keys-dir=/launchpad/validator_keys
+      - --wallet-dir=/data/wallets
+      - --wallet-password-file=/launchpad/wallet-password
       - --accept-terms-of-use
       - --${ETH_NETWORK}
     volumes:
@@ -22,8 +22,8 @@ services:
     command:
       - accounts
       - list
-      - --wallet-dir="/data/wallets"
-      - --wallet-password-file="/launchpad/wallet-password"
+      - --wallet-dir=/data/wallets
+      - --wallet-password-file=/launchpad/wallet-password
       - --accept-terms-of-use
       - --${ETH_NETWORK}
     volumes:
@@ -36,8 +36,8 @@ services:
     command:
       - accounts
       - voluntary-exit
-      - --wallet-dir="/data/wallets"
-      - --wallet-password-file="/launchpad/wallet-password"
+      - --wallet-dir=/data/wallets
+      - --wallet-password-file=/launchpad/wallet-password
       - --public-keys=${PUBKEY}
       - --accept-terms-of-use
       - --beacon-rpc-provider=beacon:4000
@@ -53,7 +53,7 @@ services:
       - accounts
       - delete
       - --wallet-dir=/data/wallets
-      - --wallet-password-file="/launchpad/wallet-password"
+      - --wallet-password-file=/launchpad/wallet-password
       - --accept-terms-of-use
       - --${ETH_NETWORK}
     volumes:
