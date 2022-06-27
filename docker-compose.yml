@@ -31,6 +31,7 @@ services:
     depends_on:
       - geth
     command:
+      - --verbosity=debug
       - --slasher
       - --datadir=/data
       - --rpc-host=0.0.0.0
@@ -43,6 +44,7 @@ services:
       - --${ETH_NETWORK}
       - --genesis-state=/genesis/${ETH_NETWORK}/genesis.ssz
       - --suggested-fee-recipient=${FEE_RECIPIENT}
+      - --p2p-host-ip=${PUBLIC_IP}
     ports:
       - 3500:3500/tcp
       - 127.0.0.1:4000:4000
