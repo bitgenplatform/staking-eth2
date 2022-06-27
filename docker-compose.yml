@@ -69,7 +69,7 @@ services:
       - --accept-terms-of-use
       - --wallet-password-file="/launchpad/wallet-password"
       - --${ETH_NETWORK}
-      - --suggested-fee-recipient=${FEE_RECIPIENT
+      - --suggested-fee-recipient=${FEE_RECIPIENT}
       - --graffiti "${GRAFFITI}"
     volumes:
       - ./auth:/auth
