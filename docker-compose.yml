@@ -6,7 +6,15 @@ services:
     image: ethereum/client-go:${ETHEREUM_CLIENT_VERSION}
     restart: always
     hostname: geth
-    command: --http --http.port=8545 --http.addr=0.0.0.0 --http.vhosts="*" --allow-insecure-unlock --http.api="db,eth,net,web3,personal,txpool" --authrpc.jwtsecret=/auth/jwt.hex --${TARGET_CHAIN}
+    command:
+      - --http
+      - --http.port=8545
+      - --http.addr=0.0.0.0
+      - --http.vhosts="*"
+      - --allow-insecure-unlock
+      - --http.api="db,eth,net,web3,personal,txpool"
+      - --authrpc.jwtsecret=/auth/jwt.hex
+      - --${TARGET_CHAIN}
     ports:
       - 30303:30303/tcp
       - 30303:30303/udp
@@ -22,7 +30,19 @@ services:
     hostname: beacon-chain
     depends_on:
       - geth
-    command: --slasher --datadir=/data --rpc-host=0.0.0.0 --grpc-gateway-host=0.0.0.0 --grpc-gateway-port=3500 --monitoring-host=0.0.0.0 --http-web3provider=http://geth:8545 --jwt-secret=/auth/jwt.hex --accept-terms-of-use --${ETH_NETWORK} --genesis-state=/genesis/${ETH_NETWORK}/genesis.ssz --suggested-fee-recipient=${FEE_RECIPIENT}
+    command:
+      - --slasher
+      - --datadir=/data
+      - --rpc-host=0.0.0.0
+      - --grpc-gateway-host=0.0.0.0
+      - --grpc-gateway-port=3500
+      - --monitoring-host=0.0.0.0
+      - --http-web3provider=http://geth:8545
+      - --jwt-secret=/auth/jwt.hex
+      - --accept-terms-of-use
+      - --${ETH_NETWORK}
+      - --genesis-state=/genesis/${ETH_NETWORK}/genesis.ssz
+      - --suggested-fee-recipient=${FEE_RECIPIENT}
     ports:
       - 3500:3500/tcp
       - 127.0.0.1:4000:4000
@@ -40,7 +60,17 @@ services:
     hostname: validator
     depends_on:
       - beacon
-    command: --beacon-rpc-provider=beacon:4000 --wallet-dir=/data/wallets --datadir=/data/db --monitoring-host=0.0.0.0 --jwt-secret=/auth/jwt.hex --accept-terms-of-use --wallet-password-file="/launchpad/wallet-password" --${ETH_NETWORK}  --suggested-fee-recipient=${FEE_RECIPIENT} --graffiti "${GRAFFITI}"
+    command:
+      - --beacon-rpc-provider=beacon:4000
+      - --wallet-dir=/data/wallets
+      - --datadir=/data/db
+      - --monitoring-host=0.0.0.0
+      - --jwt-secret=/auth/jwt.hex
+      - --accept-terms-of-use
+      - --wallet-password-file="/launchpad/wallet-password"
+      - --${ETH_NETWORK}
+      - --suggested-fee-recipient=${FEE_RECIPIENT
+      - --graffiti "${GRAFFITI}"
     volumes:
       - ./auth:/auth
       - ./launchpad:/launchpad
