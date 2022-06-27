@@ -17,7 +17,7 @@ services:
       - ${DOCKER_VOL_PATH}/validator:/data
 
   validator-list-accounts:
-    container_name: validator_list_accounts
+    container_name: validator-list-accounts
     image: gcr.io/prysmaticlabs/prysm/validator:${PRYSM_VERSION}
     command:
       - accounts
