@@ -35,7 +35,6 @@ services:
       - --slasher
       - --datadir=/data
       - --rpc-host=0.0.0.0
-      - --rpcvhosts=*
       - --grpc-gateway-host=0.0.0.0
       - --grpc-gateway-port=3500
       - --monitoring-host=0.0.0.0
