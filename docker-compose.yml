@@ -33,7 +33,7 @@ services:
     command:
       - --verbosity=debug
       - --slasher
-      - --datadir="/data"
+      - --datadir=/data
       - --rpc-host=0.0.0.0
       - --grpc-gateway-host=0.0.0.0
       - --grpc-gateway-port=3500
