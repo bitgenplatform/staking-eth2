@@ -10,11 +10,9 @@ services:
       - --keys-dir="/launchpad/validator_keys"
       - --wallet-dir="/data/wallets"
       - --wallet-password-file="/launchpad/wallet-password"
-      - --jwt-secret=/auth/jwt.hex
       - --accept-terms-of-use
       - --${ETH_NETWORK}
     volumes:
-      - ./auth:/auth
       - ./launchpad:/launchpad
       - ${DOCKER_VOL_PATH}/validator:/data
 
@@ -26,11 +24,9 @@ services:
       - list
       - --wallet-dir="/data/wallets"
       - --wallet-password-file="/launchpad/wallet-password"
-      - --jwt-secret=/auth/jwt.hex
       - --accept-terms-of-use
       - --${ETH_NETWORK}
     volumes:
-      - ./auth:/auth
       - ./launchpad:/launchpad
       - ${DOCKER_VOL_PATH}/validator:/data
 
@@ -43,12 +39,10 @@ services:
       - --wallet-dir="/data/wallets"
       - --wallet-password-file="/launchpad/wallet-password"
       - --public-keys=${PUBKEY}
-      - --jwt-secret=/auth/jwt.hex
       - --accept-terms-of-use
       - --beacon-rpc-provider=beacon:4000
       - --${ETH_NETWORK}
     volumes:
-      - ./auth:/auth
       - ./launchpad:/launchpad
       - ${DOCKER_VOL_PATH}/validator:/data
 
@@ -61,9 +55,7 @@ services:
       - --wallet-dir=/data/wallets
       - --wallet-password-file="/launchpad/wallet-password"
       - --accept-terms-of-use
-      - --jwt-secret=/auth/jwt.hex
       - --${ETH_NETWORK}
     volumes:
-      - ./auth:/auth
       - ./launchpad:/launchpad
       - ${DOCKER_VOL_PATH}/validator:/data
