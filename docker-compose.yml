@@ -67,12 +67,10 @@ services:
       - --wallet-dir=/data/wallets
       - --datadir=/data/db
       - --monitoring-host=0.0.0.0
-      - --jwt-secret=/auth/jwt.hex
       - --accept-terms-of-use
       - --wallet-password-file=/launchpad/wallet-password
       - --${ETH_NETWORK}
       - --suggested-fee-recipient=${FEE_RECIPIENT}
-      - --graffiti "${GRAFFITI}"
     volumes:
       - ./auth:/auth
       - ./launchpad:/launchpad
