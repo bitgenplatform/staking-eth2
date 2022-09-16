@@ -38,7 +38,7 @@ services:
       - --grpc-gateway-host=0.0.0.0
       - --grpc-gateway-port=3500
       - --monitoring-host=0.0.0.0
-      - --http-web3provider=http://geth:8545
+      - --execution-endpoint=http://geth:8545
       - --jwt-secret=/auth/jwt.hex
       - --accept-terms-of-use
       - --${ETH_NETWORK}
