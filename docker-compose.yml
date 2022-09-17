@@ -18,6 +18,7 @@ services:
     ports:
       - 30303:30303/tcp
       - 30303:30303/udp
+      - 127.0.0.1:8551:8551
       - 127.0.0.1:8545:8545
     volumes:
       - ./auth:/auth
@@ -40,11 +41,11 @@ services:
       - --monitoring-host=0.0.0.0
       - --execution-endpoint=http://geth:8545
       - --jwt-secret=/auth/jwt.hex
-      - --accept-terms-of-use
-      - --${ETH_NETWORK}
       - --genesis-state=/genesis/${ETH_NETWORK}/genesis.ssz
       - --suggested-fee-recipient=${FEE_RECIPIENT}
       - --p2p-host-ip=${PUBLIC_IP}
+      - --accept-terms-of-use
+      - --${ETH_NETWORK}
     ports:
       - 3500:3500/tcp
       - 127.0.0.1:4000:4000
@@ -69,8 +70,8 @@ services:
       - --monitoring-host=0.0.0.0
       - --accept-terms-of-use
       - --wallet-password-file=/launchpad/wallet-password
-      - --${ETH_NETWORK}
       - --suggested-fee-recipient=${FEE_RECIPIENT}
+      - --${ETH_NETWORK}
     volumes:
       - ./auth:/auth
       - ./launchpad:/launchpad
