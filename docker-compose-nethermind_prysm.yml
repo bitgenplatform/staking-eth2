@@ -9,7 +9,6 @@ services:
     network_mode: host
     command:
       - --JsonRpc.Enabled=true
-      - --JsonRcp.EnabledModules=["Eth","Subscribe","Trace","TxPool","Web3","Personal","Proof","Net","Parity","Health"]
       - --JsonRpc.Host=127.0.0.1
       - --JsonRpc.Port=8545
       - --JsonRcp.EngineHost=127.0.0.1
