@@ -20,11 +20,13 @@ services:
       - --HealthChecks.UIEnabled=false
       - --HealthChecks.Slug="/api/health"
       - --HealthChecks.PollingInterval=10
-      - --datadir data
       - --config ${TARGET_CHAIN}
     volumes:
       - ./auth:/auth
-      - ${DOCKER_VOL_PATH}/nethermind:/nethermind/data
+      - ${DOCKER_VOL_PATH}/nethermind/db:/nethermind/nethermind_db
+      - ${DOCKER_VOL_PATH}/nethermind/logs:/nethermind/logs
+      - ${DOCKER_VOL_PATH}/nethermind/keystore:/nethermind/keystore
+      - ${DOCKER_VOL_PATH}/nethermind/data:/nethermind/data
 
   beacon:
     container_name: beacon
