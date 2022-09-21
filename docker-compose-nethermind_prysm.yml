@@ -15,6 +15,11 @@ services:
       - --JsonRcp.EngineHost=127.0.0.1
       - --JsonRpc.EnginePort=8551
       - --JsonRcp.JwtSecretFile=/auth/jwt.hex
+      - --HealthChecks.Enabled=true
+      - --HealthChecks.WebhooksEnabled=false
+      - --HealthChecks.UIEnabled=false
+      - --HealthChecks.Slug="/api/health"
+      - --HealthChecks.PollingInterval=10
       - --datadir data
       - --config ${TARGET_CHAIN}
     volumes:
