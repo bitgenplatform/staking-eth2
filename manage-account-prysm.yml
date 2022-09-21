@@ -3,7 +3,7 @@ version: "3.7"
 services:
   validator-import-launchpad:
     container_name: validator-import-launchpad
-    image: gcr.io/prysmaticlabs/prysm/validator:${PRYSM_VERSION}
+    image: gcr.io/prysmaticlabs/prysm/validator:${CONSENSUS_LAYER_VERSION}
     command:
       - accounts
       - import
@@ -18,7 +18,7 @@ services:
 
   validator-list-accounts:
     container_name: validator-list-accounts
-    image: gcr.io/prysmaticlabs/prysm/validator:${PRYSM_VERSION}
+    image: gcr.io/prysmaticlabs/prysm/validator:${CONSENSUS_LAYER_VERSION}
     command:
       - accounts
       - list
@@ -32,7 +32,7 @@ services:
 
   validator-exit:
     container_name: validator-exit
-    image: gcr.io/prysmaticlabs/prysm/validator:${PRYSM_VERSION}
+    image: gcr.io/prysmaticlabs/prysm/validator:${CONSENSUS_LAYER_VERSION}
     command:
       - accounts
       - voluntary-exit
@@ -48,7 +48,7 @@ services:
 
   validator-delete-account:
     container_name: validator-delete-account
-    image: gcr.io/prysmaticlabs/prysm/validator:${PRYSM_VERSION}
+    image: gcr.io/prysmaticlabs/prysm/validator:${CONSENSUS_LAYER_VERSION}
     command:
       - accounts
       - delete

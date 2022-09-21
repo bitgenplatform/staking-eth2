@@ -3,7 +3,7 @@ version: "3.7"
 services:
   geth:
     container_name: geth
-    image: ethereum/client-go:${GETH_VERSION}
+    image: ethereum/client-go:${EXECUTION_LAYER_VERSION}
     restart: always
     hostname: geth
     command:
@@ -25,10 +25,10 @@ services:
       - ${DOCKER_VOL_PATH}/geth:/root/.ethereum
 
   beacon:
-    container_name: beacon-chain
-    image: gcr.io/prysmaticlabs/prysm/beacon-chain:${PRYSM_VERSION}
+    container_name: beacon
+    image: gcr.io/prysmaticlabs/prysm/beacon-chain:${CONSENSUS_LAYER_VERSION}
     restart: always
-    hostname: beacon-chain
+    hostname: beacon
     depends_on:
       - geth
     command:
@@ -41,8 +41,10 @@ services:
       - --monitoring-host=0.0.0.0
       - --execution-endpoint=http://geth:8545
       - --jwt-secret=/auth/jwt.hex
-      - --genesis-state=/genesis/${ETH_NETWORK}/genesis.ssz
       - --suggested-fee-recipient=${FEE_RECIPIENT}
+      - --genesis-state=/genesis/${ETH_NETWORK}/genesis.ssz
+      #- --checkpoint-sync-url=${BEACON_CHECKPOINT_URL}
+      #- --genesis-beacon-api-url=${BEACON_CHECKPOINT_URL}
       - --p2p-host-ip=${PUBLIC_IP}
       - --accept-terms-of-use
       - --${ETH_NETWORK}
@@ -58,7 +60,7 @@ services:
 
   validator:
     container_name: validator
-    image: gcr.io/prysmaticlabs/prysm/validator:${PRYSM_VERSION}
+    image: gcr.io/prysmaticlabs/prysm/validator:${CONSENSUS_LAYER_VERSION}
     restart: on-failure
     hostname: validator
     depends_on:

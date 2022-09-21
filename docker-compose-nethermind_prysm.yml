@@ -1,0 +1,74 @@
+version: "3.7"
+
+services:
+  nethermind:
+    container_name: nethermind
+    image: nethermind/nethermind:${EXECUTION_LAYER_VERSION}
+    restart: always
+    hostname: nethermind
+    network_mode: host
+    command:
+      - --JsonRpc.Enabled=true
+      - --JsonRcp.EnabledModules="Eth,Subscribe,Trace,TxPool,Web3,Personal,Proof,Net,Parity,Health"
+      - --JsonRpc.Host=127.0.0.1
+      - --JsonRpc.Port=8545
+      - --JsonRcp.EngineHost=127.0.0.1
+      - --JsonRpc.EnginePort=8551
+      - --JsonRcp.JwtSecretFile=/auth/jwt.hex
+      - --datadir data
+      - --config ${TARGET_CHAIN}
+    volumes:
+      - ./auth:/auth
+      - ${DOCKER_VOL_PATH}/nethermind:/nethermind/data
+
+  beacon:
+    container_name: beacon
+    image: gcr.io/prysmaticlabs/prysm/beacon-chain:${CONSENSUS_LAYER_VERSION}
+    restart: always
+    hostname: beacon
+    network_mode: host
+    depends_on:
+      - geth
+    command:
+      - --verbosity=debug
+      - --slasher
+      - --datadir=/data
+      - --rpc-host=127.0.0.1
+      - --grpc-gateway-host=127.0.0.1
+      - --grpc-gateway-port=3500
+      - --monitoring-host=127.0.0.1
+      - --execution-endpoint=http://127.0.0.1:8551
+      - --jwt-secret=/auth/jwt.hex
+      - --suggested-fee-recipient=${FEE_RECIPIENT}
+      - --p2p-host-ip=${PUBLIC_IP}
+      #- --genesis-state=/genesis/${ETH_NETWORK}/genesis.ssz
+      - --checkpoint-sync-url=${BEACON_CHECKPOINT_URL}
+      - --genesis-beacon-api-url=${BEACON_CHECKPOINT_URL}
+      - --accept-terms-of-use
+      - --${ETH_NETWORK}
+    volumes:
+      - ./auth:/auth
+      #- ./beacon-chain-genesis:/genesis
+      - ${DOCKER_VOL_PATH}/beacon:/data
+
+  validator:
+    container_name: validator
+    image: gcr.io/prysmaticlabs/prysm/validator:${CONSENSUS_LAYER_VERSION}
+    restart: on-failure
+    hostname: validator
+    network_mode: host
+    depends_on:
+      - beacon
+    command:
+      - --beacon-rpc-provider=127.0.0.1:4000
+      - --wallet-dir=/data/wallets
+      - --datadir=/data/db
+      - --monitoring-host=127.0.0.1
+      - --accept-terms-of-use
+      - --wallet-password-file=/launchpad/wallet-password
+      - --suggested-fee-recipient=${FEE_RECIPIENT}
+      - --${ETH_NETWORK}
+    volumes:
+      - ./auth:/auth
+      - ./launchpad:/launchpad
+      - ${DOCKER_VOL_PATH}/validator:/data
