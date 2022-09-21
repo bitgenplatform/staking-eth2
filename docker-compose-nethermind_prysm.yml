@@ -33,7 +33,7 @@ services:
     hostname: beacon
     network_mode: host
     depends_on:
-      - geth
+      - nethermind
     command:
       - --verbosity=debug
       - --slasher
