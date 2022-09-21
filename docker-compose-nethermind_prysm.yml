@@ -9,11 +9,12 @@ services:
     network_mode: host
     command:
       - --JsonRpc.Enabled=true
+      - --JsonRpc.EnabledModules=["Eth","Subscribe","Trace","TxPool","Web3","Personal","Proof","Net","Parity","Health"]
       - --JsonRpc.Host=127.0.0.1
       - --JsonRpc.Port=8545
-      - --JsonRcp.EngineHost=127.0.0.1
+      - --JsonRpc.EngineHost=127.0.0.1
       - --JsonRpc.EnginePort=8551
-      - --JsonRcp.JwtSecretFile=/auth/jwt.hex
+      - --JsonRpc.JwtSecretFile=/auth/jwt.hex
       - --HealthChecks.Enabled=true
       - --HealthChecks.WebhooksEnabled=false
       - --HealthChecks.UIEnabled=false
