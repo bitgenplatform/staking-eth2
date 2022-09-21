@@ -20,7 +20,7 @@ services:
       - --HealthChecks.UIEnabled=false
       - --HealthChecks.Slug="/api/health"
       - --HealthChecks.PollingInterval=10
-      - --config ${TARGET_CHAIN}
+      #- --config ${TARGET_CHAIN}
     volumes:
       - ./auth:/auth
       - ${DOCKER_VOL_PATH}/nethermind/db:/nethermind/nethermind_db
