@@ -42,9 +42,9 @@ services:
       - --execution-endpoint=http://geth:8545
       - --jwt-secret=/auth/jwt.hex
       - --suggested-fee-recipient=${FEE_RECIPIENT}
-      - --genesis-state=/genesis/${ETH_NETWORK}/genesis.ssz
-      #- --checkpoint-sync-url=${BEACON_CHECKPOINT_URL}
-      #- --genesis-beacon-api-url=${BEACON_CHECKPOINT_URL}
+      #- --genesis-state=/genesis/${ETH_NETWORK}/genesis.ssz
+      - --checkpoint-sync-url=${BEACON_CHECKPOINT_URL}
+      - --genesis-beacon-api-url=${BEACON_CHECKPOINT_URL}
       - --p2p-host-ip=${PUBLIC_IP}
       - --accept-terms-of-use
       - --${ETH_NETWORK}
@@ -55,7 +55,7 @@ services:
       - 12000:12000/udp
     volumes:
       - ./auth:/auth
-      - ./beacon-chain-genesis:/genesis
+      #- ./beacon-chain-genesis:/genesis
       - ${DOCKER_VOL_PATH}/beacon:/data
 
   validator:

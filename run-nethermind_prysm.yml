@@ -70,7 +70,6 @@ services:
     image: gcr.io/prysmaticlabs/prysm/validator:${CONSENSUS_LAYER_VERSION}
     restart: on-failure
     hostname: validator
-    network_mode: host
     depends_on:
       - beacon
     command:
