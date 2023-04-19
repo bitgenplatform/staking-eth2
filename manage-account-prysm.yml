@@ -32,8 +32,9 @@ services:
 
   validator-exit:
     container_name: validator-exit
-    image: gcr.io/prysmaticlabs/prysm/validator:${CONSENSUS_LAYER_VERSION}
+    image: gcr.io/prysmaticlabs/prysm/cmd/prysmctl:${CONSENSUS_LAYER_CMD_VERSION}
     command:
+      - validator
       - exit
       - --wallet-dir=/data/wallets
       - --wallet-password-file=/launchpad/wallet-password
