@@ -41,6 +41,7 @@ services:
       - --public-keys=${PUB_KEY}
       - --accept-terms-of-use
       - --beacon-rpc-provider=beacon:4000
+      - --force-exit
       - --${ETH_NETWORK}
     volumes:
       - ./launchpad:/launchpad
