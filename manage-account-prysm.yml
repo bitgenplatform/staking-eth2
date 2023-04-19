@@ -37,7 +37,7 @@ services:
       - exit
       - --wallet-dir=/data/wallets
       - --wallet-password-file=/launchpad/wallet-password
-      - --public-keys=${PUBKEY}
+      - --public-keys=${PUB_KEY}
       - --accept-terms-of-use
       - --beacon-rpc-provider=beacon:4000
       - --${ETH_NETWORK}
