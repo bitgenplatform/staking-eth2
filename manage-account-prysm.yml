@@ -34,27 +34,12 @@ services:
     container_name: validator-exit
     image: gcr.io/prysmaticlabs/prysm/validator:${CONSENSUS_LAYER_VERSION}
     command:
-      - accounts
-      - voluntary-exit
+      - exit
       - --wallet-dir=/data/wallets
       - --wallet-password-file=/launchpad/wallet-password
       - --public-keys=${PUBKEY}
       - --accept-terms-of-use
       - --beacon-rpc-provider=beacon:4000
-      - --${ETH_NETWORK}
-    volumes:
-      - ./launchpad:/launchpad
-      - ${DOCKER_VOL_PATH}/validator:/data
-
-  validator-delete-account:
-    container_name: validator-delete-account
-    image: gcr.io/prysmaticlabs/prysm/validator:${CONSENSUS_LAYER_VERSION}
-    command:
-      - accounts
-      - delete
-      - --wallet-dir=/data/wallets
-      - --wallet-password-file=/launchpad/wallet-password
-      - --accept-terms-of-use
       - --${ETH_NETWORK}
     volumes:
       - ./launchpad:/launchpad
