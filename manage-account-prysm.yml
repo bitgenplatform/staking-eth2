@@ -1,5 +1,3 @@
-version: "3.7"
-
 services:
   validator-import-launchpad:
     container_name: validator-import-launchpad

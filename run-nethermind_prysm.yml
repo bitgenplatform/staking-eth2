@@ -1,5 +1,3 @@
-version: "3.7"
-
 services:
   nethermind:
     container_name: nethermind
